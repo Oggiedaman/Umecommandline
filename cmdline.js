@@ -1,5 +1,6 @@
 var SLIDESHOW_FADE_TIME = 2000;
 var ITEM_FADE_TIME = 500;
+var HELP_RESET_TIME = 5000;
 
 $(document).ready(function() {
 	$('.hidden-item').hide();
@@ -27,7 +28,11 @@ function runCommand(cmd) {
 		$('#item-' + words[1]).show(ITEM_FADE_TIME);
 		break;
 	case 'help':
-		$('#item-help').show(ITEM_FADE_TIME);
+		$('#item-help').show(ITEM_FADE_TIME, function() {
+			setTimeout(function() {
+				$('#item-help').hide(ITEM_FADE_TIME);
+			}, HELP_RESET_TIME);
+		});
 		break;
 	case 'unload':
 		$('#item-' + words[1]).hide(ITEM_FADE_TIME);
