@@ -1,4 +1,5 @@
 body {
+	color: white;
 	background-color: black;
 }
 
@@ -14,9 +15,9 @@ body {
 	border: none;
 	
 	background-color: black;
-	color: green;
+	color: white;
 	
-	font-family: "Ubuntu Mono";
+	font-family: "Ubuntu Mono", monospace;
 }
 
 .hidden-item {
