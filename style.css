@@ -1,6 +1,6 @@
 body {
-	color: white;
-	background-color: black;
+	color: #FFFFFF;
+	background-color: #000000;
 }
 
 #search-bar {
@@ -8,14 +8,14 @@ body {
 	left: 1%;
 	bottom: 1%;
 	
-	width: 90%;
+	width: 95%;
 	height: 5%;
 	
 	outline: 0;
 	border: none;
 	
-	background-color: black;
-	color: white;
+	background-color: #1C1C1C;
+	color: #FFFFFF;
 	
 	font-family: "Ubuntu Mono", monospace;
 }

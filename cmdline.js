@@ -11,13 +11,13 @@ $(window).ready(function() {
 });
 
 function runCommand(cmd) {
-	var words = cmd.split(/\s/);
+	var words = cmd.split(/\./);
 	
 	switch(words[0]) {
-	case 'show':
+	case 'load':
 		$('#item-' + words[1]).show(500);
 		break;
-	case 'hide':
+	case 'unload':
 		$('#item-' + words[1]).hide(500);
 		break;
 	}
