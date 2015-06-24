@@ -39,7 +39,7 @@ function runCommand(cmd) {
 	case 'help':
 		$('#item-help').show(ITEM_FADE_TIME, function() {
 			setTimeout(function() {
-				setVisibleItem('help', false);
+				$('#item-help').hide(ITEM_FADE_TIME);
 			}, HELP_RESET_TIME);
 		});
 		break;
