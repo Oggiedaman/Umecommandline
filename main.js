@@ -4,7 +4,6 @@ var SLIDESHOW_STAY_TIME = 10000
 var HELP_RESET_TIME = 3000;
 
 $(document).ready(function() {
-	$('.hidden-item').hide();
 	fixTextSize();
 	
 	var cmdline = $('#search-bar');
@@ -34,7 +33,10 @@ function runCommand(cmd) {
 	
 	switch(words[0]) {
 	case 'load':
-		$('#item-' + words[1]).show(ITEM_FADE_TIME);
+		setVisibleItem(words[1], true);
+		break;
+	case 'unload':
+		setVisibleItem(words[1], false);
 		break;
 	case 'help':
 		$('#item-help').show(ITEM_FADE_TIME, function() {
@@ -43,9 +45,10 @@ function runCommand(cmd) {
 			}, HELP_RESET_TIME);
 		});
 		break;
-	case 'unload':
-		$('#item-' + words[1]).hide(ITEM_FADE_TIME);
-		break;
+	case 'git':
+		if(words[1] == 'rekt') {
+			setVisibleItem('rekt', true);
+		}
 	}
 }
 
@@ -64,6 +67,14 @@ function startSlideshow(imgDiv) {
 		});
 	}
 	fadeImage();
+}
+
+function showHiddenItem(name, visible) {
+	if(visible) {
+		$('#item-' + name).show(ITEM_FADE_TIME);
+	} else {
+		$('#item-' + name).hide(ITEM_FADE_TIME);
+	}
 }
 
 function fixTextSize() {

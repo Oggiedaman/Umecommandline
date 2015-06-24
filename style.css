@@ -25,6 +25,8 @@ body {
 }
 
 .hidden-item {
+	display: none;
+
 	background-color: white;
 	color: black;
 	
