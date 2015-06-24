@@ -1,8 +1,22 @@
+body {
+	background-color: black;
+}
+
 #search-bar {
 	position: fixed;
-	left: 5px;
-	bottom: 5px;
+	left: 1%;
+	bottom: 1%;
+	
 	width: 90%;
+	height: 5%;
+	
+	outline: 0;
+	border: none;
+	
+	background-color: black;
+	color: green;
+	
+	font-family: "Ubuntu Mono";
 }
 
 .hidden-item {
