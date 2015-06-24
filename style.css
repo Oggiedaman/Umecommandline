@@ -28,3 +28,12 @@ body {
 	
 	font-size: 50px;
 }
+
+.slideshow {
+	background-color: inherit;
+}
+
+.slideshow img {
+	width: 400px;
+	height: 400px;
+}

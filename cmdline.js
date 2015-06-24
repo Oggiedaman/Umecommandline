@@ -1,8 +1,7 @@
-var SLIDESHOW_FADE_TIME = 500,
-	SLIDESHOW_STAY_TIME = 2000;
+var SLIDESHOW_FADE_TIME = 2000;
 var ITEM_FADE_TIME = 500;
 
-$(window).ready(function() {
+$(document).ready(function() {
 	$('.hidden-item').hide();
 	fixTextSize();
 	
@@ -12,6 +11,8 @@ $(window).ready(function() {
 			$(this).val('');
 		}
 	});
+	
+	startSlideshow($('.slideshow'));
 });
 
 function runCommand(cmd) {
@@ -31,18 +32,19 @@ function runCommand(cmd) {
 	}
 }
 
-$('.slideshow-div').load(function() {
-	startSlideshow(this);
-});
-
 function startSlideshow(imgDiv) {
 	var index = 0;
 	var images = $(imgDiv).children('img');
 	
-	setInterval(function() {
+	images.hide();
+	function fadeImage() {
 		index = (index + 1) % images.length;
-		images.get(index).fadeIn(SLIDESHOW_FADE_TIME);
-	});
+		
+		$(images[index]).fadeIn(SLIDESHOW_FADE_TIME / 2, function() {
+			$(images[index]).fadeOut(SLIDESHOW_FADE_TIME / 2, fadeImage);
+		});
+	}
+	fadeImage();
 }
 
 function fixTextSize() {
