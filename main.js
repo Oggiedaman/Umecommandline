@@ -31,13 +31,13 @@ function runCommand(cmd) {
 	
 	switch(words[0]) {
 	case 'load':
-		setVisibleItem(words[1], true);
+		$('#item-' + words[1]).show(ITEM_FADE_TIME);
 		break;
 	case 'unload':
-		setVisibleItem(words[1], false);
+		$('#item-' + words[1]).hide(ITEM_FADE_TIME);
 		break;
 	case 'help':
-		setVisibleItem('help', true, function() {
+		$('#item-help').show(ITEM_FADE_TIME, function() {
 			setTimeout(function() {
 				setVisibleItem('help', false);
 			}, HELP_RESET_TIME);
@@ -45,7 +45,9 @@ function runCommand(cmd) {
 		break;
 	case 'git':
 		if(words[1] == 'rekt') {
-			setVisibleItem('rekt', true);
+			var elem = $('#item-rekt');
+			elem.show();
+			centerElement(elem);
 		}
 	}
 }
@@ -67,12 +69,12 @@ function startSlideshow(imgDiv) {
 	fadeImage();
 }
 
-function setVisibleItem(name, visible, callback) {
-	if(visible) {
-		$('#item-' + name).show(ITEM_FADE_TIME, callback);
-	} else {
-		$('#item-' + name).hide(ITEM_FADE_TIME, callback);
-	}
+function centerElement(elem) {
+	elem.css({
+		'position': 'absolute',
+		'left': (elem.parent().width() - elem.width()) / 2 + 'px',
+		'top': (elem.parent().height() - elem.height()) / 2 + 'px'
+	});
 }
 
 function fixTextSize() {
