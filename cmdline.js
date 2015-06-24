@@ -6,7 +6,13 @@ $(document).ready(function() {
 	$('.hidden-item').hide();
 	fixTextSize();
 	
-	$('#search-bar').keyup(function(evt) {
+	var cmdline = $('#search-bar');
+	
+	cmdline.click(function() {
+		$(this).select();
+	});
+	
+	cmdline.keyup(function(evt) {
 		if(evt.key == 'Enter' || evt.keyCode == 13) {
 			runCommand($(this).val());
 			$(this).val('');
