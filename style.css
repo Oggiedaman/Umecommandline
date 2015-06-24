@@ -1,6 +1,5 @@
 body {
-	color: #FFFFFF;
-	background-color: #000000;
+	background-color: black;
 }
 
 #search-bar {
@@ -15,11 +14,17 @@ body {
 	border: none;
 	
 	background-color: #1C1C1C;
-	color: #FFFFFF;
+	color: white;
 	
 	font-family: "Ubuntu Mono", monospace;
 }
 
 .hidden-item {
+	width: auto;
+	height: auto;
+
+	background-color: white;
+	color: black;
+	
 	font-size: 50px;
 }

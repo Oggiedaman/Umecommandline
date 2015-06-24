@@ -13,6 +13,10 @@ $(window).ready(function() {
 function runCommand(cmd) {
 	var words = cmd.split(/\./);
 	
+	words = words.map(function(s) {
+		return s.toLowerCase();
+	});
+	
 	switch(words[0]) {
 	case 'load':
 		$('#item-' + words[1]).show(500);
@@ -21,6 +25,10 @@ function runCommand(cmd) {
 		$('#item-' + words[1]).hide(500);
 		break;
 	}
+}
+
+function startSlideshow(imgNames) {
+	var img = $('slideshow-img');
 }
 
 function fixTextSize() {
