@@ -26,6 +26,9 @@ function runCommand(cmd) {
 	case 'load':
 		$('#item-' + words[1]).show(ITEM_FADE_TIME);
 		break;
+	case 'help':
+		$('#item-help').show(ITEM_FADE_TIME);
+		break;
 	case 'unload':
 		$('#item-' + words[1]).hide(ITEM_FADE_TIME);
 		break;
