@@ -7,13 +7,11 @@ $(document).ready(function() {
 	fixTextSize();
 	
 	var cmdline = $('#search-bar');
-	
 	cmdline.focus(function() {
 		$(this).select();
 	}).mouseup(function(evt) {
 		evt.preventDefault();
 	});
-	
 	cmdline.keyup(function(evt) {
 		if(evt.key == 'Enter' || evt.keyCode == 13) {
 			runCommand($(this).val());
