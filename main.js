@@ -39,9 +39,9 @@ function runCommand(cmd) {
 		setVisibleItem(words[1], false);
 		break;
 	case 'help':
-		$('#item-help').show(ITEM_FADE_TIME, function() {
+		setVisibleItem('help', true, function() {
 			setTimeout(function() {
-				$('#item-help').hide(ITEM_FADE_TIME);
+				setVisibleItem('help', false);
 			}, HELP_RESET_TIME);
 		});
 		break;
@@ -69,11 +69,11 @@ function startSlideshow(imgDiv) {
 	fadeImage();
 }
 
-function showHiddenItem(name, visible) {
+function setVisibleItem(name, visible, callback) {
 	if(visible) {
-		$('#item-' + name).show(ITEM_FADE_TIME);
+		$('#item-' + name).show(ITEM_FADE_TIME, callback);
 	} else {
-		$('#item-' + name).hide(ITEM_FADE_TIME);
+		$('#item-' + name).hide(ITEM_FADE_TIME, callback);
 	}
 }
 
