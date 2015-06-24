@@ -11,6 +11,8 @@ $(document).ready(function() {
 	
 	cmdline.click(function() {
 		$(this).select();
+	}).focus(function() {
+		$(this).select();
 	});
 	
 	cmdline.keyup(function(evt) {
