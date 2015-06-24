@@ -1,5 +1,6 @@
 var SLIDESHOW_FADE_TIME = 2000;
 var ITEM_FADE_TIME = 500;
+var SLIDESHOW_STAY_TIME = 10000
 var HELP_RESET_TIME = 5000;
 
 $(document).ready(function() {
@@ -55,7 +56,9 @@ function startSlideshow(imgDiv) {
 		index = (index + 1) % images.length;
 		
 		$(images[index]).fadeIn(SLIDESHOW_FADE_TIME / 2, function() {
-			$(images[index]).fadeOut(SLIDESHOW_FADE_TIME / 2, fadeImage);
+			setTimeout(function() {
+				$(images[index]).fadeOut(SLIDESHOW_FADE_TIME / 2, fadeImage);
+			}, SLIDESHOW_STAY_TIME);
 		});
 	}
 	fadeImage();
