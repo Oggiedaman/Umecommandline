@@ -1,2 +1,10 @@
-hidden-item {
+#search-bar {
+	position: fixed;
+	left: 5px;
+	bottom: 5px;
+	width: 90%;
+}
+
+.hidden-item {
+	font-size: 50px;
 }
