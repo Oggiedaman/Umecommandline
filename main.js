@@ -8,10 +8,10 @@ $(document).ready(function() {
 	
 	var cmdline = $('#search-bar');
 	
-	cmdline.click(function() {
+	cmdline.focus(function() {
 		$(this).select();
-	}).focus(function() {
-		$(this).select();
+	}).mouseup(function(evt) {
+		evt.preventDefault();
 	});
 	
 	cmdline.keyup(function(evt) {
