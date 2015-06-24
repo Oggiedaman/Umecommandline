@@ -1,7 +1,7 @@
 var SLIDESHOW_FADE_TIME = 2000;
 var ITEM_FADE_TIME = 500;
 var SLIDESHOW_STAY_TIME = 10000
-var HELP_RESET_TIME = 5000;
+var HELP_RESET_TIME = 3000;
 
 $(document).ready(function() {
 	$('.hidden-item').hide();
