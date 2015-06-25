@@ -1,6 +1,6 @@
-var SLIDESHOW_FADE_TIME = 2000;
+var SLIDESHOW_FADE_TIME = 500;
+var SLIDESHOW_STAY_TIME = 5000;
 var ITEM_FADE_TIME = 500;
-var SLIDESHOW_STAY_TIME = 10000
 var HELP_RESET_TIME = 3000;
 
 $(document).ready(function() {
@@ -31,20 +31,28 @@ function runCommand(cmd) {
 	
 	switch(words[0]) {
 	case 'load':
-		setItemShown(words[1], true);
+		setElemShown($('#item-' + words[1]), true);
 		break;
 	case 'unload':
-		setItemShown(words[1], false);
+		setElemShown($('#item-' + words[1]), false);
 		break;
 	case 'help':
-		showItemFor('help', HELP_RESET_TIME);
+		showElemFor($('#item-help'), HELP_RESET_TIME);
 		break;
 	case 'git':
 		if(words[1] == 'rekt') {
 			var elem = $('#item-rekt');
-			elem.show();
+			showElemFor(elem, 4000);
 			centerElement(elem);
 		}
+		break;
+	case 'get':
+		if(words[1] == 'fact') {
+			var facts = $('#item-facts p');
+			var f = facts[randomInt(0, facts.length)];
+			setElemShown(f, true);
+		}
+		break;
 	}
 }
 
@@ -52,17 +60,26 @@ function startSlideshow(imgDiv) {
 	var index = 0;
 	var images = $(imgDiv).children('img');
 	
-	images.hide();
-	function fadeImage() {
+	var width = images.width();
+	
+	images.css({
+		'width': '0'
+	});
+	
+	function changeImage() {
+		var prevI = index;
 		index = (index + 1) % images.length;
 		
-		$(images[index]).fadeIn(SLIDESHOW_FADE_TIME / 2, function() {
-			setTimeout(function() {
-				$(images[index]).fadeOut(SLIDESHOW_FADE_TIME / 2, fadeImage);
-			}, SLIDESHOW_STAY_TIME);
+		$(images[prevI]).animate({
+			'width': '0'
+		}, SLIDESHOW_FADE_TIME);
+		$(images[index]).animate({
+			'width': width + 'px'
+		}, SLIDESHOW_FADE_TIME,  function() {
+			setTimeout(changeImage, SLIDESHOW_STAY_TIME);
 		});
 	}
-	fadeImage();
+	changeImage();
 }
 
 function centerElement(elem) {
@@ -73,24 +90,24 @@ function centerElement(elem) {
 	});
 }
 
-var itemZValue = 0;
-function setItemShown(name, shown) {
-	var item = $('#item-' + name);
+var elemZValue = 0;
+function setElemShown(elem, shown) {
+	console.log(elem);
 	if(shown) {
-		item.css({
-			'left': randomInt(0, $(document).width() - item.width()) + 'px',
-			'top': randomInt(0, $(document).height() - item.height()) + 'px',
-			'z-index': ++itemZValue
+		elem.css({
+			'left': randomInt(0, $(document).width() - elem.width()) + 'px',
+			'top': randomInt(0, $(document).height() - elem.height()) + 'px',
+			'z-index': ++elemZValue
 		}).show(ITEM_FADE_TIME);
 	} else {
-		item.hide(ITEM_FADE_TIME);
+		elem.hide(ITEM_FADE_TIME);
 	}
 }
 
-function showItemFor(name, time) {
-	$('#item-' + name).css('z-index', ++itemZValue).show(ITEM_FADE_TIME, function() {
+function showElemFor(elem, time) {
+	elem.css('z-index', ++elemZValue).show(ITEM_FADE_TIME, function() {
 		setTimeout(function() {
-			$('#item-' + name).hide(ITEM_FADE_TIME);
+			elem.hide(ITEM_FADE_TIME);
 		}, time);
 	});
 }
@@ -98,10 +115,8 @@ function showItemFor(name, time) {
 function fixTextSize() {
 	var elem = $('#search-bar');
 	elem.css('font-size', elem.height() * 0.9 + 'px');
-	elem.css('z-index', 99999999);
 }
 
 function randomInt(min, max) {
-	console.log(min, max);
 	return min + Math.floor(Math.random() * (max - min));
 }
