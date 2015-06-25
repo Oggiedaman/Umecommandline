@@ -3,7 +3,7 @@ var SLIDESHOW_STAY_TIME = 5000;
 var ITEM_FADE_TIME = 500;
 var HELP_RESET_TIME = 3000;
 var TYPEWRITER_DELAY = 200;
-var TYPEWRITE_SOUND_PATH = 'snd/beep.mp3';
+var TYPEWRITER_SOUND_PATH = 'snd/beep.mp3';
 
 var FACTS = [
 	'Umeå grundades år 1622 av Gustav II Adolf.',
@@ -43,9 +43,13 @@ function runCommand(cmd) {
 	switch(words[0]) {
 	case 'load':
 		if(words[1] == 'fact') {
-			typewriterEffect($('#item-fact'), FACTS[randomInt(0, FACTS.length)]);
+			var fact = $('#item-fact');
+			placeAtRandom(fact);
+			fact.text('').show();
+			typewriterEffect(fact, FACTS[randomInt(0, FACTS.length)]);
+		} else {
+			setElemShown($('#item-' + words[1]), true);
 		}
-		setElemShown($('#item-' + words[1]), true);
 		break;
 	case 'unload':
 		setElemShown($('#item-' + words[1]), false);
@@ -98,13 +102,26 @@ function centerElement(elem) {
 }
 
 var elemZValue = 0;
+function placeAtRandom(elem) {
+	elem.css({
+		'left': randomInt(0, $(document).width() - elem.width()) + 'px',
+		'top': randomInt(0, $(document).height() - elem.height()) + 'px',
+		'z-index': ++elemZValue
+	});
+}
+
+function showElemFor(elem, time) {
+	elem.css('z-index', ++elemZValue).show(ITEM_FADE_TIME, function() {
+		setTimeout(function() {
+			elem.hide(ITEM_FADE_TIME);
+		}, time);
+	});
+}
+
 function setElemShown(elem, shown) {
 	function showAtRandom() {
-		elem.css({
-			'left': randomInt(0, $(document).width() - elem.width()) + 'px',
-			'top': randomInt(0, $(document).height() - elem.height()) + 'px',
-			'z-index': ++elemZValue
-		}).show(ITEM_FADE_TIME);
+		placeAtRandom(elem);
+		elem.show(ITEM_FADE_TIME);
 	}
 	
 	if(shown) {
@@ -117,14 +134,6 @@ function setElemShown(elem, shown) {
 	} else {
 		elem.hide(ITEM_FADE_TIME);
 	}
-}
-
-function showElemFor(elem, time) {
-	elem.css('z-index', ++elemZValue).show(ITEM_FADE_TIME, function() {
-		setTimeout(function() {
-			elem.hide(ITEM_FADE_TIME);
-		}, time);
-	});
 }
 
 function typewriterEffect(elem, text) {
