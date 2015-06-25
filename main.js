@@ -31,17 +31,13 @@ function runCommand(cmd) {
 	
 	switch(words[0]) {
 	case 'load':
-		$('#item-' + words[1]).show(ITEM_FADE_TIME);
+		setItemShown(words[1], true);
 		break;
 	case 'unload':
-		$('#item-' + words[1]).hide(ITEM_FADE_TIME);
+		setItemShown(words[1], false);
 		break;
 	case 'help':
-		$('#item-help').show(ITEM_FADE_TIME, function() {
-			setTimeout(function() {
-				$('#item-help').hide(ITEM_FADE_TIME);
-			}, HELP_RESET_TIME);
-		});
+		showItemFor('help', HELP_RESET_TIME);
 		break;
 	case 'git':
 		if(words[1] == 'rekt') {
@@ -77,7 +73,32 @@ function centerElement(elem) {
 	});
 }
 
+function setItemShown(name, shown) {
+	var item = $('#item-' + name);
+	if(shown) {
+		item.css({
+			'left': randomInt(0, $(document).width() - item.width()) + 'px',
+			'top': randomInt(0, $(document).height() - item.height()) + 'px'
+		}).show(ITEM_FADE_TIME);
+	} else {
+		item.hide(ITEM_FADE_TIME);
+	}
+}
+
+function showItemFor(name, time) {
+	$('#item-' + name).show(ITEM_FADE_TIME, function() {
+		setTimeout(function() {
+			$('#item-' + name).hide(ITEM_FADE_TIME);
+		}, time);
+	});
+}
+
 function fixTextSize() {
 	var elem = $('#search-bar');
 	elem.css('font-size', elem.height() * 0.9 + 'px');
+}
+
+function randomInt(min, max) {
+	console.log(min, max);
+	return min + Math.floor(Math.random() * (max - min));
 }

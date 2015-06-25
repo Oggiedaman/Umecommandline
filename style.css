@@ -25,6 +25,7 @@ body {
 }
 
 .hidden-item {
+	position: absolute;
 	display: none;
 
 	background-color: white;
