@@ -1,9 +1,13 @@
 var SLIDESHOW_FADE_TIME = 500;
 var SLIDESHOW_STAY_TIME = 5000;
+
 var ITEM_FADE_TIME = 500;
+
 var HELP_RESET_TIME = 3000;
+
 var TYPEWRITER_DELAY = 200;
 var TYPEWRITER_SOUND_PATH = 'snd/beep.mp3';
+var TYPEWRITER_END_SOUND_PATH = 'snd/dotbeep.mp3';
 
 var FACTS = [
 	'Umeå grundades år 1622 av Gustav II Adolf.',
@@ -138,9 +142,12 @@ function setElemShown(elem, shown) {
 
 function typewriterEffect(elem, text) {
 	var sound = new Audio(TYPEWRITER_SOUND_PATH);
+	var endSound = new Audio(TYPEWRITER_END_SOUND_PATH);
 	var index = 0;
 	function addLetter() {
-		if(++index >= text.length) {
+		if(++index > text.length) {
+			// slice takes one less than index
+			endSound.play();
 			return;
 		}
 		
