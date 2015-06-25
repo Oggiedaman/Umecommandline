@@ -48,7 +48,9 @@ function runCommand(cmd) {
 		break;
 	case 'get':
 		if(words[1] == 'fact') {
-			
+			var facts = $('#item-facts p');
+			var f = facts[randomInt(0, facts.length)];
+			setElemShown(f, true);
 		}
 		break;
 	}
