@@ -2,6 +2,17 @@ var SLIDESHOW_FADE_TIME = 500;
 var SLIDESHOW_STAY_TIME = 5000;
 var ITEM_FADE_TIME = 500;
 var HELP_RESET_TIME = 3000;
+var TYPEWRITER_DELAY = 200;
+var TYPEWRITE_SOUND_PATH = 'snd/beep.mp3';
+
+var FACTS = [
+	'Umeå grundades år 1622 av Gustav II Adolf.',
+	'Umeå är sveriges tolfte största tätort.',
+	'I slutet av 1980-talet marknadsfördes Umeå som Norrlands huvudstad.',
+	'Det bor runt 120.000 människor i Umeå kommun.',
+	'Det finns 58 stadsdelar och 15 grönområden i Umeå.',
+	'Umeås närmaste stad är Vasa i Finland.'
+];
 
 $(document).ready(function() {
 	fixTextSize();
@@ -31,6 +42,9 @@ function runCommand(cmd) {
 	
 	switch(words[0]) {
 	case 'load':
+		if(words[1] == 'fact') {
+			typewriterEffect($('#item-fact'), FACTS[randomInt(0, FACTS.length)]);
+		}
 		setElemShown($('#item-' + words[1]), true);
 		break;
 	case 'unload':
@@ -44,13 +58,6 @@ function runCommand(cmd) {
 			var elem = $('#item-rekt');
 			showElemFor(elem, 4000);
 			centerElement(elem);
-		}
-		break;
-	case 'get':
-		if(words[1] == 'fact') {
-			var facts = $('#item-facts p');
-			var f = facts[randomInt(0, facts.length)];
-			setElemShown(f, true);
 		}
 		break;
 	}
@@ -92,13 +99,21 @@ function centerElement(elem) {
 
 var elemZValue = 0;
 function setElemShown(elem, shown) {
-	console.log(elem);
-	if(shown) {
+	function showAtRandom() {
 		elem.css({
 			'left': randomInt(0, $(document).width() - elem.width()) + 'px',
 			'top': randomInt(0, $(document).height() - elem.height()) + 'px',
 			'z-index': ++elemZValue
 		}).show(ITEM_FADE_TIME);
+	}
+	
+	if(shown) {
+		if(elem.is(':visible')) {
+			// hide first, then show
+			elem.hide(ITEM_FADE_TIME, showAtRandom);
+		} else {
+			showAtRandom();
+		}
 	} else {
 		elem.hide(ITEM_FADE_TIME);
 	}
@@ -110,6 +125,29 @@ function showElemFor(elem, time) {
 			elem.hide(ITEM_FADE_TIME);
 		}, time);
 	});
+}
+
+function typewriterEffect(elem, text) {
+	var sound = new Audio(TYPEWRITER_SOUND_PATH);
+	var index = 0;
+	function addLetter() {
+		if(++index >= text.length) {
+			return;
+		}
+		
+		var delay;
+		if(/\s/.test(text[index])) {
+			delay = 0;
+		} else {
+			delay = TYPEWRITER_DELAY;
+		}
+		
+		sound.play();
+		elem.text(text.slice(0, index));
+		
+		setTimeout(addLetter, TYPEWRITER_DELAY);
+	}
+	addLetter();
 }
 
 function fixTextSize() {
