@@ -1,13 +1,10 @@
 var SLIDESHOW_FADE_TIME = 500;
 var SLIDESHOW_STAY_TIME = 5000;
-
 var ITEM_FADE_TIME = 500;
-
 var HELP_RESET_TIME = 3000;
-
 var TYPEWRITER_DELAY = 200;
-var TYPEWRITER_SOUND_PATH = 'snd/beep.mp3';
-var TYPEWRITER_END_SOUND_PATH = 'snd/dotbeep.mp3';
+
+var soundEnabled = true;
 
 var FACTS = [
 	'Umeå grundades år 1622 av Gustav II Adolf.',
@@ -68,6 +65,10 @@ function runCommand(cmd) {
 			centerElement(elem);
 		}
 		break;
+	case 'disable':
+		if(words[1] == 'sound') {
+			soundEnabled = false;
+		}
 	}
 }
 
@@ -141,13 +142,11 @@ function setElemShown(elem, shown) {
 }
 
 function typewriterEffect(elem, text) {
-	var sound = new Audio(TYPEWRITER_SOUND_PATH);
-	var endSound = new Audio(TYPEWRITER_END_SOUND_PATH);
 	var index = 0;
 	function addLetter() {
 		if(++index > text.length) {
 			// slice takes one less than index
-			endSound.play();
+			playSoundEffect('zZZ.mp3');
 			return;
 		}
 		
@@ -158,12 +157,23 @@ function typewriterEffect(elem, text) {
 			delay = TYPEWRITER_DELAY;
 		}
 		
-		sound.play();
+		playSoundEffect('beep.mp3');
 		elem.text(text.slice(0, index));
 		
 		setTimeout(addLetter, TYPEWRITER_DELAY);
 	}
 	addLetter();
+}
+
+var soundEffects = {};
+function playSoundEffect(name) {
+	if(!soundEnabled) {
+		return;
+	}
+	if(!soundEffects[name]) {
+		soundEffects[name] = new Audio('snd/' + name);
+	}
+	soundEffects[name].play();
 }
 
 function fixTextSize() {
