@@ -1,8 +1,9 @@
 var SLIDESHOW_FADE_TIME = 500;
-var SLIDESHOW_STAY_TIME = 5000;
+var SLIDESHOW_STAY_TIME = 7500;
 var ITEM_FADE_TIME = 500;
 var HELP_RESET_TIME = 3000;
 var TYPEWRITER_DELAY = 200;
+var REKT_GIF_LENGTH = 3100;
 
 var soundEnabled = false;
 
@@ -60,7 +61,7 @@ function runCommand(cmd) {
 	case 'git':
 		if(words[1] == 'rekt') {
 			var elem = $('#item-rekt');
-			showElemFor(elem, 4000);
+			showElemFor(elem, REKT_GIF_LENGTH);
 			centerElement(elem);
 		}
 		break;
