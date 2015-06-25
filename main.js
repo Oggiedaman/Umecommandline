@@ -16,9 +16,8 @@ var FACTS = [
 ];
 
 $(document).ready(function() {
-	fixTextSize();
-	
 	var cmdline = $('#search-bar');
+	cmdline.css('font-size', cmdline.height() + 'px');
 	cmdline.focus(function() {
 		$(this).select();
 	}).mouseup(function(evt) {
@@ -174,11 +173,6 @@ function playSoundEffect(name) {
 		soundEffects[name] = new Audio('snd/' + name);
 	}
 	soundEffects[name].play();
-}
-
-function fixTextSize() {
-	var elem = $('#search-bar');
-	elem.css('font-size', elem.height() * 0.9 + 'px');
 }
 
 function randomInt(min, max) {
