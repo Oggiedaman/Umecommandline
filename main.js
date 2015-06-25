@@ -145,7 +145,7 @@ function typewriterEffect(elem, text) {
 	function addLetter() {
 		if(++index > text.length) {
 			// slice takes one less than index
-			playSoundEffect('zZZ.mp3');
+			playSoundEffect('zzzz.mp3');
 			return;
 		}
 		
