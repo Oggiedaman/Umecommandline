@@ -73,12 +73,14 @@ function centerElement(elem) {
 	});
 }
 
+var itemZValue = 0;
 function setItemShown(name, shown) {
 	var item = $('#item-' + name);
 	if(shown) {
 		item.css({
 			'left': randomInt(0, $(document).width() - item.width()) + 'px',
-			'top': randomInt(0, $(document).height() - item.height()) + 'px'
+			'top': randomInt(0, $(document).height() - item.height()) + 'px',
+			'z-index': ++itemZValue
 		}).show(ITEM_FADE_TIME);
 	} else {
 		item.hide(ITEM_FADE_TIME);
@@ -86,7 +88,7 @@ function setItemShown(name, shown) {
 }
 
 function showItemFor(name, time) {
-	$('#item-' + name).show(ITEM_FADE_TIME, function() {
+	$('#item-' + name).css('z-index', ++itemZValue).show(ITEM_FADE_TIME, function() {
 		setTimeout(function() {
 			$('#item-' + name).hide(ITEM_FADE_TIME);
 		}, time);
@@ -96,6 +98,7 @@ function showItemFor(name, time) {
 function fixTextSize() {
 	var elem = $('#search-bar');
 	elem.css('font-size', elem.height() * 0.9 + 'px');
+	elem.css('z-index', 99999999);
 }
 
 function randomInt(min, max) {
