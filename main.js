@@ -1,6 +1,6 @@
-var SLIDESHOW_FADE_TIME = 2000;
+var SLIDESHOW_FADE_TIME = 500;
+var SLIDESHOW_STAY_TIME = 5000;
 var ITEM_FADE_TIME = 500;
-var SLIDESHOW_STAY_TIME = 10000
 var HELP_RESET_TIME = 3000;
 
 $(document).ready(function() {
@@ -52,17 +52,26 @@ function startSlideshow(imgDiv) {
 	var index = 0;
 	var images = $(imgDiv).children('img');
 	
-	images.hide();
-	function fadeImage() {
+	var width = images.width();
+	
+	images.css({
+		'width': '0'
+	});
+	
+	function changeImage() {
+		var prevI = index;
 		index = (index + 1) % images.length;
 		
-		$(images[index]).fadeIn(SLIDESHOW_FADE_TIME / 2, function() {
-			setTimeout(function() {
-				$(images[index]).fadeOut(SLIDESHOW_FADE_TIME / 2, fadeImage);
-			}, SLIDESHOW_STAY_TIME);
+		$(images[prevI]).animate({
+			'width': '0'
+		}, SLIDESHOW_FADE_TIME);
+		$(images[index]).animate({
+			'width': width + 'px'
+		}, SLIDESHOW_FADE_TIME,  function() {
+			setTimeout(changeImage, SLIDESHOW_STAY_TIME);
 		});
 	}
-	fadeImage();
+	changeImage();
 }
 
 function centerElement(elem) {
@@ -98,7 +107,6 @@ function showItemFor(name, time) {
 function fixTextSize() {
 	var elem = $('#search-bar');
 	elem.css('font-size', elem.height() * 0.9 + 'px');
-	elem.css('z-index', 99999999);
 }
 
 function randomInt(min, max) {

@@ -1,5 +1,5 @@
 body {
-	background-color: black;
+	background-color: #1C1C1C;
 }
 
 #search-bar {
@@ -13,14 +13,16 @@ body {
 	outline: 0;
 	border: none;
 	
-	background-color: #1C1C1C;
+	background-color: black;
 	color: white;
 	
 	font-family: "Ubuntu Mono", monospace;
+	
+	z-index: 40000000000000;
 }
 
 #search-bar::selection {
-	color: #1C1C1C;
+	color: black;
 	background-color: white;
 }
 
@@ -41,6 +43,16 @@ body {
 }
 
 .slideshow img {
-	width: 400px;
-	height: 400px;
+	width: 480px;
+	height: 360px;
+	
+	margin: 0;
+	
+	position: relative;
+	
+	display: none;
+}
+
+#item-help {
+	background-color: #E87600;
 }
