@@ -56,3 +56,7 @@ body {
 #item-help {
 	background-color: #E87600;
 }
+
+#item-fact p {
+	display: none;
+}

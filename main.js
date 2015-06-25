@@ -31,20 +31,26 @@ function runCommand(cmd) {
 	
 	switch(words[0]) {
 	case 'load':
-		setItemShown(words[1], true);
+		setElemShown($('#item-' + words[1]), true);
 		break;
 	case 'unload':
-		setItemShown(words[1], false);
+		setElemShown($('#item-' + words[1]), false);
 		break;
 	case 'help':
-		showItemFor('help', HELP_RESET_TIME);
+		showElemFor($('#item-help'), HELP_RESET_TIME);
 		break;
 	case 'git':
 		if(words[1] == 'rekt') {
 			var elem = $('#item-rekt');
-			elem.show();
+			showElemFor(elem, 4000);
 			centerElement(elem);
 		}
+		break;
+	case 'get':
+		if(words[1] == 'fact') {
+			
+		}
+		break;
 	}
 }
 
@@ -82,24 +88,24 @@ function centerElement(elem) {
 	});
 }
 
-var itemZValue = 0;
-function setItemShown(name, shown) {
-	var item = $('#item-' + name);
+var elemZValue = 0;
+function setElemShown(elem, shown) {
+	console.log(elem);
 	if(shown) {
-		item.css({
-			'left': randomInt(0, $(document).width() - item.width()) + 'px',
-			'top': randomInt(0, $(document).height() - item.height()) + 'px',
-			'z-index': ++itemZValue
+		elem.css({
+			'left': randomInt(0, $(document).width() - elem.width()) + 'px',
+			'top': randomInt(0, $(document).height() - elem.height()) + 'px',
+			'z-index': ++elemZValue
 		}).show(ITEM_FADE_TIME);
 	} else {
-		item.hide(ITEM_FADE_TIME);
+		elem.hide(ITEM_FADE_TIME);
 	}
 }
 
-function showItemFor(name, time) {
-	$('#item-' + name).css('z-index', ++itemZValue).show(ITEM_FADE_TIME, function() {
+function showElemFor(elem, time) {
+	elem.css('z-index', ++elemZValue).show(ITEM_FADE_TIME, function() {
 		setTimeout(function() {
-			$('#item-' + name).hide(ITEM_FADE_TIME);
+			elem.hide(ITEM_FADE_TIME);
 		}, time);
 	});
 }
@@ -110,6 +116,5 @@ function fixTextSize() {
 }
 
 function randomInt(min, max) {
-	console.log(min, max);
 	return min + Math.floor(Math.random() * (max - min));
 }
