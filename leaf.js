@@ -11,7 +11,7 @@ function rainSprites() {
 	$(document.body).append(image);
 	$(document.body).append(canvas);
 	
-	var spriteList = new SpriteList(10, image, canvas.width, canvas.height);
+	var spriteList = new SpriteList(100, image, canvas.width, canvas.height);
 	
 	setInterval(function() {
 		spriteList.update(0.1);
