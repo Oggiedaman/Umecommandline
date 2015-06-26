@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var image = document.createElement('img');
 	
 	image.src = IMAGE_PATH;
+	image.style['display'] = 'none';
 	
 	$(document.body).append(image);
 	$(document.body).append(canvas);
@@ -33,55 +34,50 @@ function fullscreenCanvas() {
 	return canvas;
 }
 
-Sprite.image = null;
-
-function Sprite(x, y, size) {
-	this.x = x;
-	this.y = y;
-	this.size = size;
-	this.angle = 0;
-}
-
-Sprite.prototype.update = function(dt) {
-	this.y += 100 * dt;
-	
-	this.angle += dt * Math.PI;
-}
-
-Sprite.prototype.draw = function(ctx, img) {
-	ctx.save();
-	ctx.translate(this.x - img.width / 2, this.y - img.height / 2);
-	ctx.rotate(this.angle);
-	ctx.drawImage(img, 0, 0, this.size, this.size);
-	ctx.restore();
-}
-
 function SpriteList(count, image, w, h) {
 	this.image = image;
 	this.sprites = [];
-	
-	console.log(image);
 	
 	this.width = w;
 	this.height = h;
 	
 	for(var i = 0; i < count; i++) {
-		this.sprites.push(new Sprite(Math.random() * this.width, 0, Math.random() * 100));
+		this.addRandom();
 	}
+}
+
+SpriteList.prototype.addRandom = function() {
+	this.sprites.push({
+		x: Math.random() * this.width,
+		y: 0,
+		angle: Math.random() * Math.PI,
+		size: 50 + Math.random() * 50,
+		grav: Math.random() * 800
+	});
 }
 
 SpriteList.prototype.update = function(dt) {
 	for(var i = 0; i < this.sprites.length; i++) {
 		var s = this.sprites[i];
-		s.update(dt);
+		
 		s.x = s.x % this.width;
-		s.y = s.y % this.height;
+		s.y = (s.y + dt * s.grav) % this.height;
+		
+		s.angle += Math.PI * dt;
 	}
 }
 
 SpriteList.prototype.draw = function(ctx) {
 	ctx.clearRect(0, 0, this.width, this.height);
 	for(var i = 0; i < this.sprites.length; i++) {
-		this.sprites[i].draw(ctx, this.image);
+		this.drawSprite(ctx, this.sprites[i]);
 	}
+}
+
+SpriteList.prototype.drawSprite = function(ctx, sprite) {
+	ctx.save();
+	ctx.translate(sprite.x, sprite.y);
+	ctx.rotate(sprite.angle);
+	ctx.drawImage(this.image, -this.image.width / 2, -this.image.height / 2, sprite.size, sprite.size);
+	ctx.restore();
 }
