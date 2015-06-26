@@ -11,7 +11,7 @@ function rainSprites() {
 	$(document.body).append(image);
 	$(document.body).append(canvas);
 	
-	var spriteList = new SpriteList(10, image, canvas.width, canvas.height);
+	var spriteList = new SpriteList(100, image, canvas.width, canvas.height);
 	
 	setInterval(function() {
 		spriteList.update(0.1);
@@ -25,7 +25,9 @@ function fullscreenCanvas() {
 	$(canvas).css({
 		'position': 'absolute',
 		'top': '0',
-		'left': '0'
+		'left': '0',
+		'z-index': '99999999999999999',
+		'pointer-events': 'none'
 	});
 	
 	canvas.width = $(window).width();
