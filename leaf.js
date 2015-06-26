@@ -1,4 +1,5 @@
 var IMAGE_PATH = 'img/björklöv.png';
+var FRAME_DELAY = 1000 / 30;
 
 function rainSprites() {
 	var canvas = fullscreenCanvas();
@@ -14,9 +15,9 @@ function rainSprites() {
 	var spriteList = new SpriteList(100, image, canvas.width, canvas.height);
 	
 	setInterval(function() {
-		spriteList.update(0.1);
+		spriteList.update(FRAME_DELAY / 1000);
 		spriteList.draw(ctx);
-	}, 100);
+	}, FRAME_DELAY);
 }
 
 function fullscreenCanvas() {
@@ -54,7 +55,7 @@ SpriteList.prototype.addRandom = function() {
 		y: 0,
 		angle: Math.random() * Math.PI,
 		size: 50 + Math.random() * 50,
-		grav: Math.random() * 800
+		grav: 500 +  Math.random() * 300
 	});
 }
 
