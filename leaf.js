@@ -5,7 +5,7 @@ $(document).ready(function() {
 	var ctx = canvas.getContext('2d');
 	var image = document.createElement('img');
 	
-	image.src = 'IMAGE_PATH';
+	image.src = IMAGE_PATH;
 	
 	$(document.body).append(image);
 	$(document.body).append(canvas);
@@ -43,14 +43,17 @@ function Sprite(x, y, size) {
 }
 
 Sprite.prototype.update = function(dt) {
-	this.y += dt;
+	this.y += 100 * dt;
 	
 	this.angle += dt * Math.PI;
 }
 
 Sprite.prototype.draw = function(ctx, img) {
+	ctx.save();
+	ctx.translate(this.x - img.width / 2, this.y - img.height / 2);
 	ctx.rotate(this.angle);
-	ctx.drawImage(img, this.x, this.y, this.size, this.size);
+	ctx.drawImage(img, 0, 0, this.size, this.size);
+	ctx.restore();
 }
 
 function SpriteList(count, image, w, h) {
@@ -63,7 +66,7 @@ function SpriteList(count, image, w, h) {
 	this.height = h;
 	
 	for(var i = 0; i < count; i++) {
-		this.sprites.push(new Sprite(0, Math.random() * this.width, Math.random() * 100));
+		this.sprites.push(new Sprite(Math.random() * this.width, 0, Math.random() * 100));
 	}
 }
 
@@ -77,6 +80,7 @@ SpriteList.prototype.update = function(dt) {
 }
 
 SpriteList.prototype.draw = function(ctx) {
+	ctx.clearRect(0, 0, this.width, this.height);
 	for(var i = 0; i < this.sprites.length; i++) {
 		this.sprites[i].draw(ctx, this.image);
 	}
