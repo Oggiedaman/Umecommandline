@@ -1,6 +1,6 @@
 var IMAGE_PATH = 'img/björklöv.png';
 
-$(document).ready(function() {
+function rainSprites() {
 	var canvas = fullscreenCanvas();
 	var ctx = canvas.getContext('2d');
 	var image = document.createElement('img');
@@ -17,7 +17,7 @@ $(document).ready(function() {
 		spriteList.update(0.1);
 		spriteList.draw(ctx);
 	}, 100);
-});
+}
 
 function fullscreenCanvas() {
 	var canvas = document.createElement('canvas');

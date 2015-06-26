@@ -63,6 +63,8 @@ function runCommand(cmd) {
 			var elem = $('#item-rekt');
 			showElemFor(elem, REKT_GIF_LENGTH);
 			centerElement(elem);
+		} else if(words[1] == 'löv') {
+			rainSprites();
 		}
 		break;
 	case 'enable':
