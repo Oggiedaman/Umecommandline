@@ -18,17 +18,32 @@ var FACTS = [
 
 $(document).ready(function() {
 	var cmdline = $('#search-bar');
+	
 	cmdline.css('font-size', cmdline.height() * 0.9 + 'px');
 	cmdline.focus(function() {
 		$(this).select();
 	}).mouseup(function(evt) {
 		evt.preventDefault();
 	});
+	
+	
+	var prevCmds = [];
 	cmdline.keyup(function(evt) {
 		if(evt.key == 'Enter' || evt.keyCode == 13) {
-			runCommand($(this).val());
+			var c = $(this).val();
+			runCommand(c);
+			if(c) {
+				// wont run if c is ""...
+				prevCmds.push(c);
+			}
 			$(this).val('');
+		} else if(evt.key == 'ArrowUp' || evt.keyCode == 38) {
+			var c = prevCmds[prevCmds.length - 1];
+			if(c) {
+				$(this).val(c);
+			}
 		}
+		console.log(prevCmds);
 	});
 	
 	startSlideshow($('.slideshow'));
