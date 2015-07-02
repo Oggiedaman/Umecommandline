@@ -55,7 +55,8 @@ SpriteList.prototype.addRandom = function() {
 		y: 0,
 		angle: Math.random() * Math.PI,
 		size: 50 + Math.random() * 50,
-		grav: 500 +  Math.random() * 300
+		grav: 500 +  Math.random() * 300,
+		spinSpeed: Math.random() * 5
 	});
 }
 
@@ -66,7 +67,7 @@ SpriteList.prototype.update = function(dt) {
 		s.x = s.x % this.width;
 		s.y = (s.y + dt * s.grav) % this.height;
 		
-		s.angle += Math.PI * dt;
+		s.angle += Math.PI * dt * s.spinSpeed;
 	}
 }
 
