@@ -43,7 +43,6 @@ $(document).ready(function() {
 				$(this).val(c);
 			}
 		}
-		console.log(prevCmds);
 	});
 	
 	startSlideshow($('.slideshow'));
@@ -163,12 +162,15 @@ function setElemShown(elem, shown) {
 	}
 }
 
+var intv = null;
 function typewriterEffect(elem, text) {
+	clearInterval(intv);
 	var index = 0;
 	function addLetter() {
 		if(++index > text.length) {
 			// slice takes one less than index
 			playSoundEffect('zzzz.mp3');
+			clearInterval(intv);
 			return;
 		}
 		
@@ -181,10 +183,8 @@ function typewriterEffect(elem, text) {
 		
 		playSoundEffect('beep.mp3');
 		elem.text(text.slice(0, index));
-		
-		setTimeout(addLetter, TYPEWRITER_DELAY);
 	}
-	addLetter();
+	intv = setInterval(addLetter, TYPEWRITER_DELAY);
 }
 
 var soundEffects = {};
